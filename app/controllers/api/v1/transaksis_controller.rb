@@ -1,0 +1,56 @@
+module Api
+  module V1
+    class TransaksisController < ApplicationController
+      before_action :authorize_admin, only: [:index, :show, :report]
+
+      def index
+        transaksis = Transaksi.includes(:user, :meja, transaksi_items: :product).order(created_at: :desc)
+        transaksis = transaksis.where(transaksi_type: params[:type]) if params[:type].present?
+        transaksis = transaksis.where(status: params[:status]) if params[:status].present?
+        render json: transaksis, include: [:user, :meja, { transaksi_items: :product }]
+      end
+
+      def show
+        render json: Transaksi.includes(:user, :meja, transaksi_items: :product).find(params[:id]),
+               include: [:user, :meja, { transaksi_items: :product }]
+      end
+
+      def create
+        transaksi = Transaksi.new(transaksi_params)
+        transaksi.user = @current_user
+        if @current_user.kasir_billiard?
+          transaksi.transaksi_type = :billiard
+        elsif @current_user.kasir_cafe?
+          transaksi.transaksi_type = :cafe
+        end
+        transaksi.save ? (render json: transaksi, status: :created) : (render json: { errors: transaksi.errors.full_messages }, status: :unprocessable_entity)
+      end
+
+      def pay
+        transaksi = Transaksi.find(params[:id])
+        transaksi.status = :dibayar
+        transaksi.payment_method = params[:payment_method] || 0
+        transaksi.jam_selesai = Time.current
+        transaksi.save ? render(json: transaksi) : render(json: { errors: transaksi.errors.full_messages }, status: :unprocessable_entity)
+      end
+
+      def report
+        date = (params[:date]&.to_date || Date.current)
+        transaksis = Transaksi.where(created_at: date.beginning_of_day..date.end_of_day, status: :dibayar)
+        render json: {
+          date: date,
+          total_billiard: transaksis.billiard.sum(:total_amount),
+          total_cafe: transaksis.cafe.sum(:total_amount),
+          total_all: transaksis.sum(:total_amount),
+          count: transaksis.count,
+          details: transaksis.as_json(include: [:user, :meja, { transaksi_items: :product }])
+        }
+      end
+
+      private
+      def transaksi_params
+        params.require(:transaksi).permit(:meja_id, :customer_name, :payment_method, transaksi_items_attributes: [:product_id, :quantity, :notes])
+      end
+    end
+  end
+end

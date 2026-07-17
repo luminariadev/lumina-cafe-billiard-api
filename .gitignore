@@ -13,3 +13,6 @@ tmp/storage/*
 .idea
 *.swp
 .DS_Store
+log/development.log
+tmp/
+log/
