@@ -8,6 +8,7 @@ gem "puma", ">= 6.0"
 gem "jbuilder"
 gem "bcrypt", "~> 3.1"
 gem "rack-cors"
+gem "jwt", "~> 2.7"
 gem "bootsnap", require: false
 
 group :development, :test do
