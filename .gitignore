@@ -3,3 +3,13 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+tmp/cache/bootsnap*
+log/*.log
+storage/*
+!storage/.keep
+tmp/storage/*
+!tmp/storage/.keep
+.vscode
+.idea
+*.swp
+.DS_Store
