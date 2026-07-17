@@ -21,7 +21,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgres://lumina:lumina_dev_pass@db:5433/lumina_cafe_billiard_dev
+      DATABASE_URL: postgres://lumina:lumina_dev_pass@db:5432/lumina_cafe_billiard_dev
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
     volumes:
