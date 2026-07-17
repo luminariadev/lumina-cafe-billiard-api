@@ -9,6 +9,10 @@ class Transaksi < ApplicationRecord
   validates :kode_transaksi, presence: true, uniqueness: true
   before_validation :generate_kode_transaksi, on: :create
 
+  scope :today, -> { where("DATE(jam_mulai) = ?", Time.zone.today) }
+  scope :this_month, -> { where("jam_mulai >= ?", Time.zone.today.beginning_of_month) }
+  scope :between_dates, ->(start_date, end_date) { where(jam_mulai: start_date..end_date) }
+
   private
   def generate_kode_transaksi
     return if kode_transaksi

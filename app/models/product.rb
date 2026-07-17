@@ -5,4 +5,7 @@ class Product < ApplicationRecord
   enum :status, { active: 0, inactive: 1 }
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+
+  scope :available, -> { where(status: :active).where("stock > 0") }
+  scope :low_stock, -> { where(status: :active).where("stock <= ?", 5) }
 end

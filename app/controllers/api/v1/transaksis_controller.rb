@@ -29,9 +29,23 @@ module Api
       def pay
         transaksi = Transaksi.find(params[:id])
         transaksi.status = :dibayar
-        transaksi.payment_method = params[:payment_method] || 0
+        transaksi.payment_method = params[:payment_method] || :tunai
         transaksi.jam_selesai = Time.current
         transaksi.save ? render(json: transaksi) : render(json: { errors: transaksi.errors.full_messages }, status: :unprocessable_entity)
+      end
+
+      def cafe_pos
+        service = TransactionService.new(
+          user: @current_user,
+          payment_method: params[:payment_method] || :tunai,
+          items: params[:items] || {}
+        )
+        result = service.call
+        if result.success?
+          render json: result.transaction, status: :created
+        else
+          render json: { error: result.error }, status: :unprocessable_entity
+        end
       end
 
       def report

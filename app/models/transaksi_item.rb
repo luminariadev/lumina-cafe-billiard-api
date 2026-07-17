@@ -6,7 +6,7 @@ class TransaksiItem < ApplicationRecord
 
   private
   def set_price_subtotal
-    self.price ||{ = product& }.price || 0
+    self.price ||= product&.price || 0
     self.subtotal = (quantity || 1) * price
   end
 end

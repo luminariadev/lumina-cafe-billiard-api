@@ -8,8 +8,9 @@ Rails.application.routes.draw do
       resources :mejas
       resources :transaksis do
         member { post :pay }
-        collection { get :report }
+        collection { get :report; post :cafe_pos }
       end
+      resources :reports, only: [:index]
     end
   end
 end
