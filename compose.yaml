@@ -25,7 +25,7 @@ services:
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
     volumes:
-      - .:/app
+      - .:/rails
     depends_on:
       db:
         condition: service_healthy

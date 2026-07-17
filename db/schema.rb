@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_17_102038) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_17_163943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,7 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_102038) do
     t.datetime "jam_mulai"
     t.datetime "jam_selesai"
     t.string "kode_transaksi"
-    t.bigint "meja_id", null: false
+    t.bigint "meja_id"
     t.integer "payment_method"
     t.integer "status"
     t.decimal "total_amount"

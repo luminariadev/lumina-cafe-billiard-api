@@ -13,7 +13,7 @@ module Api
 
         best_sellers = TransaksiItem
           .joins(:product, :transaksi)
-          .where(status: :dibayar)
+          .where(transaksis: { status: :dibayar })
           .group("products.name")
           .order(Arel.sql("SUM(transaksi_items.quantity) DESC"))
           .limit(5)
