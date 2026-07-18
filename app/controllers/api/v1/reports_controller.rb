@@ -1,7 +1,6 @@
 module Api
   module V1
     class ReportsController < ApplicationController
-      before_action :authorize_admin
 
       def index
         today = Time.zone.today
