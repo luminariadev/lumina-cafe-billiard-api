@@ -7,12 +7,12 @@ module Api
         transaksis = Transaksi.includes(:user, :meja, transaksi_items: :product).order(created_at: :desc)
         transaksis = transaksis.where(transaksi_type: params[:type]) if params[:type].present?
         transaksis = transaksis.where(status: params[:status]) if params[:status].present?
-        render json: transaksis, include: [:user, :meja, { transaksi_items: :product }]
+        render json: transaksis.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }])
       end
 
       def show
-        render json: Transaksi.includes(:user, :meja, transaksi_items: :product).find(params[:id]),
-               include: [:user, :meja, { transaksi_items: :product }]
+        transaksi = Transaksi.includes(:user, :meja, transaksi_items: :product).find(params[:id])
+        render json: transaksi.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }])
       end
 
       def create
