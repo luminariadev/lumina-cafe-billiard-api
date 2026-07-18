@@ -5,8 +5,10 @@ module Api
 
       def index
         today = Time.zone.today
-        transactions = Transaksi.where(jam_mulai: today.all_day).where(status: :dibayar)
-        monthly = Transaksi.where(jam_mulai: today.beginning_of_month..Time.current).where(status: :dibayar)
+        # Kasir only see their own data
+        transaksi_scope = @current_user.kasir? ? Transaksi.where(user_id: @current_user.id) : Transaksi
+        transactions = transaksi_scope.where(jam_mulai: today.all_day).where(status: :dibayar)
+        monthly = transaksi_scope.where(jam_mulai: today.beginning_of_month..Time.current).where(status: :dibayar)
 
         today_revenue = transactions.sum(:total_amount)
         monthly_revenue = monthly.sum(:total_amount)

@@ -1,12 +1,14 @@
 module Api
   module V1
     class TransaksisController < ApplicationController
-      before_action :authorize_admin, only: [:index, :show, :report]
+      before_action :authorize_admin, only: [:report]
 
       def index
         transaksis = Transaksi.includes(:user, :meja, transaksi_items: :product).order(created_at: :desc)
         transaksis = transaksis.where(transaksi_type: params[:type]) if params[:type].present?
         transaksis = transaksis.where(status: params[:status]) if params[:status].present?
+        # Kasir only see their own transactions
+        transaksis = transaksis.where(user_id: @current_user.id) if @current_user.kasir?
         render json: transaksis.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }])
       end
 

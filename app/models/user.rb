@@ -8,7 +8,19 @@ class User < ApplicationRecord
   validates :name, :username, :email, presence: true
   validates :username, :email, uniqueness: true
 
-  def admin? = role == "admin"
-  def kasir_billiard? = role == "kasir_billiard"
-  def kasir_cafe? = role == "kasir_cafe"
+  def admin?
+    role == "admin"
+  end
+
+  def kasir_billiard?
+    role == "kasir_billiard"
+  end
+
+  def kasir_cafe?
+    role == "kasir_cafe"
+  end
+
+  def kasir?
+    kasir_billiard? || kasir_cafe?
+  end
 end
