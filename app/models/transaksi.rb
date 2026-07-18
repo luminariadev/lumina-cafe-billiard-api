@@ -1,5 +1,5 @@
 class Transaksi < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :meja, optional: true
   has_many :transaksi_items, dependent: :destroy
   accepts_nested_attributes_for :transaksi_items
@@ -13,12 +13,16 @@ class Transaksi < ApplicationRecord
   scope :this_month, -> { where("jam_mulai >= ?", Time.zone.today.beginning_of_month) }
   scope :between_dates, ->(start_date, end_date) { where(jam_mulai: start_date..end_date) }
 
-  private
   def generate_kode_transaksi
     return if kode_transaksi
-    prefix = billiard? ? "BL" : "CF"
-    date_part = Time.current.strftime("%y%m%d")
+    prefix = billiard? ? "GB" : "GC"
+    date_part = Time.current.strftime("%Y%m%d")
     seq = (self.class.where("kode_transaksi LIKE ?", "#{prefix}#{date_part}%").count + 1).to_s.rjust(4, "0")
     self.kode_transaksi = "#{prefix}#{date_part}#{seq}"
+  end
+
+  def generate_qris
+    self.qris_string = "LUMINA-#{kode_transaksi}-#{SecureRandom.hex(6)}"
+    self.qr_expires_at = Time.current + 5.minutes
   end
 end

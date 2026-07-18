@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_17_163943) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_18_192647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,11 +57,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_17_163943) do
   create_table "transaksis", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "customer_name"
+    t.string "customer_phone"
     t.datetime "jam_mulai"
     t.datetime "jam_selesai"
     t.string "kode_transaksi"
     t.bigint "meja_id"
     t.integer "payment_method"
+    t.datetime "qr_expires_at"
+    t.string "qris_string"
     t.integer "status"
     t.decimal "total_amount"
     t.integer "transaksi_type"
