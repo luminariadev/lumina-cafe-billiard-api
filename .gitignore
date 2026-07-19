@@ -1,5 +1,12 @@
 .claude/
 
+# AI agent config files (never allowed as contributors)
+AGENTS.md
+CLAUDE.md
+CURSOR.md
+CLINE.md
+*.cursorrules
+
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
