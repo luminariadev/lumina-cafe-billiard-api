@@ -5,12 +5,17 @@ module Api
 
       def index
         categories = Category.all.order(:name)
-        render json: categories
+        # Load product_counts for each category
+        category_product_counts = Product.group(:category_id).count
+
+        render json: categories.map do |category|
+          category.as_json.merge(product_count: category_product_counts[category.id] || 0)
+        end
       end
 
       def show
         category = Category.find(params[:id])
-        render json: category
+        render json: category.as_json.merge(product_count: category.products.count)
       end
 
       def create

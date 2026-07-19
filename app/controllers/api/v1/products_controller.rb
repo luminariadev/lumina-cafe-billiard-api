@@ -1,17 +1,24 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      skip_before_action :authorize_request, only: [:index, :show]
       before_action :authorize_admin, only: [:create, :update, :destroy]
 
       def index
         products = Product.includes(:category).order(:name)
         products = products.where(product_type: params[:type]) if params[:type].present?
-        render json: products, include: :category
+        render json: products.map { |p|
+          p.as_json.merge(
+            active: p.active?,
+            product_type: p.product_type,
+            price: p.price.to_f
+          )
+        }
       end
 
       def show
         product = Product.includes(:category).find(params[:id])
-        render json: product, include: :category
+        render json: product.as_json.merge(active: product.active?)
       end
 
       def create

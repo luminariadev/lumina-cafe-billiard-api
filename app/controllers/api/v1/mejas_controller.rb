@@ -1,14 +1,17 @@
 module Api
   module V1
     class MejasController < ApplicationController
+      skip_before_action :authorize_request, only: [:index]
       before_action :authorize_admin, only: [:create, :update, :destroy]
 
       def index
-        render json: Meja.all.order(:nomor_meja)
+        render json: Meja.all.order(:nomor_meja).map { |m|
+          m.as_json.merge(status: m.status)
+        }
       end
 
       def show
-        render json: Meja.find(params[:id])
+        render json: Meja.find(params[:id]).as_json.merge(status: Meja.find(params[:id]).status)
       end
 
       def create
