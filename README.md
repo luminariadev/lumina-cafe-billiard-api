@@ -1,5 +1,10 @@
 # Lumina Cafe Billiard — Backend API
 
+[![CI](https://github.com/luminariadev/lumina-cafe-billiard-api/actions/workflows/ci.yml/badge.svg)](https://github.com/luminariadev/lumina-cafe-billiard-api/actions)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits)](https://conventionalcommits.org)
+[![Ruby](https://img.shields.io/badge/Ruby-3.4-red?logo=ruby)](https://ruby-lang.org)
+[![Rails](https://img.shields.io/badge/Rails-8.1-red?logo=rubyonrails)](https://rubyonrails.org)
+
 Rails 8 API untuk sistem manajemen Cafe & Billiard **Lumina**. Berjalan di Docker container dengan PostgreSQL 16.
 
 ---
