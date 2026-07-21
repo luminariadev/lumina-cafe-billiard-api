@@ -11,7 +11,8 @@ module Api
       end
 
       def show
-        render json: Meja.find(params[:id]).as_json.merge(status: Meja.find(params[:id]).status)
+        meja = Meja.find(params[:id])
+        render json: meja.as_json.merge(status: meja.status)
       end
 
       def create
