@@ -1,7 +1,7 @@
 module Api
   module V1
     class MejasController < ApplicationController
-      skip_before_action :authorize_request, only: [:index]
+      skip_before_action :authorize_request, only: [:index, :show]
       before_action :authorize_admin, only: [:create, :update, :destroy]
 
       def index
