@@ -5,8 +5,14 @@ module Api
       before_action :authorize_admin, only: [:create, :update, :destroy]
 
       def index
-        render json: Meja.all.order(:nomor_meja).map { |m|
-          m.as_json.merge(status: m.status)
+        mejas = Meja.order(:nomor_meja)
+        page = (params[:page] || 1).to_i
+        per_page = (params[:per_page] || 50).to_i.clamp(1, 100)
+        total = mejas.count
+        mejas = mejas.offset((page - 1) * per_page).limit(per_page)
+        render json: {
+          data: mejas.map { |m| m.as_json.merge(status: m.status) },
+          meta: { page: page, per_page: per_page, total: total, pages: (total.to_f / per_page).ceil }
         }
       end
 
