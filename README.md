@@ -75,6 +75,7 @@ app/
 | `GET` | `/api/v1/products/:id` | Detail produk |
 | `GET` | `/api/v1/mejas` | Daftar semua meja |
 | `GET` | `/api/v1/mejas/:id` | Detail meja |
+| `GET` | `/api/v1/configs` | Konfigurasi aplikasi (harga, jam operasional, dll.) |
 
 ### Guest (No Auth, Transaksi)
 | Method | Endpoint | Description |
@@ -83,6 +84,7 @@ app/
 | `POST` | `/api/v1/guest_transactions/cafe` | Order cafe (makanan/minuman) |
 | `GET` | `/api/v1/guest_transactions/:id/status` | Cek status pembayaran |
 | `POST` | `/api/v1/guest_transactions/:id/pay` | Simulasi pembayaran QRIS |
+| `GET` | `/api/v1/guest_transactions/history` | Riwayat transaksi guest berdasarkan nomor HP |
 
 **Billiard booking body:**
 ```json
@@ -109,7 +111,7 @@ app/
 |--------|----------|-------------|
 | `POST` | `/api/v1/auth/login` | Login (email + password) |
 | `GET` | `/api/v1/auth/me` | Profil user saat ini |
-| `GET` / `POST` | `/api/v1/transaksis` | CRUD transaksi |
+| `GET` / `POST` | `/api/v1/transaksis` | CRUD transaksi (paginated: `?page=&per_page=`) |
 | `GET` / `PATCH` / `DELETE` | `/api/v1/transaksis/:id` | Detail / update / hapus transaksi |
 | `POST` | `/api/v1/transaksis/:id/pay` | Konfirmasi pembayaran |
 | `POST` | `/api/v1/transaksis/cafe_pos` | POS cafe (kasir) |
