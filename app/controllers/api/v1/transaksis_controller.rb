@@ -3,30 +3,23 @@ module Api
     class TransaksisController < ApplicationController
       before_action :authorize_admin, only: [:report]
 
-            def index
-                    transaksis = Transaksi.includes(:user, :meja, transaksi_items: :product).order(created_at: :desc)
-                    transaksis = transaksis.where(transaksi_type: params[:type]) if params[:type].present?
-                    transaksis = transaksis.where(status: params[:status]) if params[:status].present?
-                    # Kasir only see their own transactions
-                    transaksis = transaksis.where(user_id: @current_user.id) if @current_user&.kasir?
+      def index
+        transaksis = Transaksi.includes(:user, :meja, transaksi_items: :product).order(created_at: :desc)
+        transaksis = transaksis.where(transaksi_type: params[:type]) if params[:type].present?
+        transaksis = transaksis.where(status: params[:status]) if params[:status].present?
+        # Kasir only see their own transactions
+        transaksis = transaksis.where(user_id: @current_user.id) if @current_user&.kasir?
 
-                    page = (params[:page] || 1).to_i
-                    per_page = (params[:per_page] || 50).to_i.clamp(1, 100)
-                    total = transaksis.count
-                    transaksis = transaksis.offset((page - 1) * per_page).limit(per_page)
+        page = (params[:page] || 1).to_i
+        per_page = (params[:per_page] || 50).to_i.clamp(1, 100)
+        total = transaksis.count
+        transaksis = transaksis.offset((page - 1) * per_page).limit(per_page)
 
-                    render json: {
-                      data: transaksis.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }]),
-                      meta: { page: page, per_page: per_page, total: total, pages: (total.to_f / per_page).ceil }
-                    }
-                  end
-              total = transaksis.count
-              transaksis = transaksis.offset((page - 1) * per_page).limit(per_page)
-              render json: {
-                data: transaksis.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }]),
-                meta: { page: page, per_page: per_page, total: total, pages: (total.to_f / per_page).ceil }
-              }
-            end
+        render json: {
+          data: transaksis.as_json(include: [:user, :meja, { transaksi_items: { include: :product } }]),
+          meta: { page: page, per_page: per_page, total: total, pages: (total.to_f / per_page).ceil }
+        }
+      end
 
       def show
         transaksi = Transaksi.includes(:user, :meja, transaksi_items: :product).find(params[:id])
@@ -80,6 +73,7 @@ module Api
       end
 
       private
+
       def transaksi_params
         params.require(:transaksi).permit(:meja_id, :customer_name, :payment_method, transaksi_items_attributes: [:product_id, :quantity, :notes])
       end
