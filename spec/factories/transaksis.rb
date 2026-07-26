@@ -2,13 +2,13 @@ FactoryBot.define do
   factory :transaksi do
     user { nil }
     meja { nil }
-    kode_transaksi { "MyString" }
-    customer_name { "MyString" }
-    transaksi_type { 1 }
-    total_amount { "9.99" }
-    status { 1 }
-    payment_method { 1 }
-    jam_mulai { "2026-07-17 10:20:30" }
-    jam_selesai { "2026-07-17 10:20:30" }
+    kode_transaksi { nil }
+    customer_name { "John Doe" }
+    transaksi_type { :billiard }
+    total_amount { 50000 }
+    status { :pending }
+    payment_method { :cash }
+    jam_mulai { Time.current }
+    jam_selesai { nil }
   end
 end

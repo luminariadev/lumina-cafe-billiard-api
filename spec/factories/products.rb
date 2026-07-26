@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :product do
     category { nil }
-    name { "MyString" }
-    price { "9.99" }
-    stock { 1 }
-    product_type { 1 }
-    status { 1 }
+    sequence(:name) { |n| "Product #{n}" }
+    price { 10000 }
+    stock { 10 }
+    product_type { :cafe }
+    status { :active }
   end
 end
