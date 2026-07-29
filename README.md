@@ -195,3 +195,4 @@ docker compose exec api bundle exec rails test
 # Check routes
 docker compose exec api bundle exec rails routes
 ```
+2026-07-29 19:42
