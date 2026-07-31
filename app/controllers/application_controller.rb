@@ -30,11 +30,11 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_kasir_cafe
-      render json: { error: "Akses ditolak" }, status: :forbidden unless @current_user&.admin? || @current_user&.kasir_cafe?
-    end
-
-    # Handle CORS preflight OPTIONS requests for development/test
-    def cors_preflight_options
-      head :ok
-    end
+    render json: { error: "Akses ditolak" }, status: :forbidden unless @current_user&.admin? || @current_user&.kasir_cafe?
   end
+
+  # Handle CORS preflight OPTIONS requests for development/test
+  def cors_preflight_options
+    head :ok
+  end
+end
