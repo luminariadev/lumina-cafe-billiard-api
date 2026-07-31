@@ -8,4 +8,11 @@ class Product < ApplicationRecord
 
   scope :available, -> { where(status: :active).where("stock > 0") }
   scope :low_stock, -> { where(status: :active).where("stock <= ?", 5) }
+
+  def deduct_stock(quantity)
+    with_lock do
+      raise "Insufficient stock" if stock < quantity
+      decrement!(:stock, quantity)
+    end
+  end
 end
