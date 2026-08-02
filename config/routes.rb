@@ -1,26 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-          post "auth/login", to: "auth#login"
-          get "auth/me", to: "auth#me"
-          resources :categories
-          resources :products
-          resources :mejas
-          resources :configs, only: [:index]
-          resources :transaksis do
-                  member { post :pay }
-                  collection { get :report; post :cafe_pos }
-                end
-                resources :reports, only: [:index]
-                get "guest_transactions/history" => "guest_transactions#history"
-                post "guest_transactions/billiard" => "guest_transactions#billiard_booking"
-                post "guest_transactions/cafe" => "guest_transactions#cafe_order"
-                get "guest_transactions/:id/status" => "guest_transactions#payment_status"
-                post "guest_transactions/:id/pay" => "guest_transactions#simulate_payment"
-
-      # CORS setup
-      # Match all routes under /api/v1 for CORS (adjust as needed)
-      match '*path', to: 'application#cors_preflight_options', via: [:options] if Rails.env.development? || Rails.env.test?
+      resources :branches
+      resources :mejas
+      resources :products
+      resources :transaksis
+      post 'auth/login', to: 'authentication#login'
     end
   end
 end
