@@ -48,7 +48,7 @@
 | **Multi-branch support** | **Satu akun bisa manage banyak cabang** | API | ✅ |
 | Tax invoice (PPN) | Generate faktur pajak otomatis | API | ⬜ |
 | Analytics dashboard | Grafik penjualan, peak hours, tren produk | Web | ⬜ |
-| Dark mode toggle | Biar user bisa ganti tema sendiri | Web | ⬜ |
+| **Dark mode toggle** | **Biar user bisa ganti tema sendiri** | Web | ✅ |
 | **Export laporan** | **Export CSV laporan transaksi** | Web | ✅ |
 
 ---
