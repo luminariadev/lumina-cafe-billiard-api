@@ -29,6 +29,43 @@ module Api
         }
       end
 
+      # GET /api/v1/reports/analytics — sales analytics (peak hours, daily trend, top categories)
+      def analytics
+        return render json: { error: "Unauthorized" }, status: :forbidden unless @current_user&.admin?
+
+        # Peak hours: transactions grouped by hour of day (last 7 days)
+        peak_hours = Transaksi
+          .where(status: :dibayar)
+          .where("jam_mulai >= ?", 7.days.ago.beginning_of_day)
+          .group("EXTRACT(HOUR FROM jam_mulai)")
+          .order("count_all DESC")
+          .limit(8)
+          .count
+
+        # Daily trend: last 14 days revenue per day
+        daily_trend = Transaksi
+          .where(status: :dibayar)
+          .where("jam_mulai >= ?", 14.days.ago.beginning_of_day)
+          .group("DATE(jam_mulai)")
+          .sum(:total_amount)
+
+        # Top categories by revenue
+        top_categories = TransaksiItem
+          .joins(product: :category, transaksi: :transaksi_type)
+          .where(transaksis: { status: :dibayar })
+          .where("jam_mulai >= ?", 30.days.ago.beginning_of_day)
+          .group("categories.name")
+          .order(Arel.sql("SUM(transaksi_items.subtotal) DESC"))
+          .limit(5)
+          .pluck("categories.name, SUM(transaksi_items.subtotal)")
+
+        render json: {
+          peak_hours: peak_hours.map { |hour, count| { hour: hour.to_i, count: count } },
+          daily_trend: daily_trend.map { |date, amount| { date: date, revenue: amount.to_f } },
+          top_categories: top_categories.map { |name, amount| { name: name, revenue: amount.to_f } }
+        }
+      end
+
       private
 
       def authorize_admin
