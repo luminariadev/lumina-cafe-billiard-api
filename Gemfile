@@ -13,7 +13,7 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug"
-  gem "rspec-rails", "~> 7.0"
+  gem "rspec-rails", "~> 8.0"
   gem "factory_bot_rails"
   gem "faker"
   gem "shoulda-matchers", "~> 6.0"
