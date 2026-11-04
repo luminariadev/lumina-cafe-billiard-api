@@ -1,4 +1,4 @@
-# Lumina Cafe Billiard — Backend API
+﻿# Lumina Cafe Billiard â€” Backend API
 
 [![CI](https://github.com/luminariadev/lumina-cafe-billiard-api/actions/workflows/ci.yml/badge.svg)](https://github.com/luminariadev/lumina-cafe-billiard-api/actions)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits)](https://conventionalcommits.org)
@@ -36,8 +36,8 @@ docker compose exec api bundle exec rails db:create db:migrate db:seed
 # API aktif di http://localhost:3000/api/v1
 ```
 
-> **Port:** 3000 (host) → 3000 (container)  
-> **PostgreSQL:** localhost:5433 (host) → 5432 (container)
+> **Port:** 3000 (host) â†’ 3000 (container)  
+> **PostgreSQL:** localhost:5433 (host) â†’ 5432 (container)
 
 ---
 
@@ -45,23 +45,23 @@ docker compose exec api bundle exec rails db:create db:migrate db:seed
 
 ```
 app/
-├── controllers/api/v1/
-│   ├── auth_controller.rb           # Login + JWT
-│   ├── products_controller.rb       # CRUD produk (index public)
-│   ├── mejas_controller.rb          # CRUD meja (index public)
-│   ├── transaksis_controller.rb     # Transaksi auth (CRUD + pay + report + cafe_pos)
-│   ├── guest_transactions_controller.rb  # Transaksi guest (tanpa auth)
-│   ├── categories_controller.rb     # CRUD kategori
-│   └── reports_controller.rb        # Laporan (read-only, auth required)
-├── models/
-│   ├── user.rb                      # User (admin/kasir_billiard/kasir_cafe)
-│   ├── product.rb                   # Produk makanan/minuman
-│   ├── meja.rb                      # Meja billiard
-│   ├── transaksi.rb                 # Transaksi (billiard/cafe)
-│   ├── transaksi_item.rb            # Item dalam transaksi cafe
-│   └── category.rb                  # Kategori produk
-└── services/
-    └── json_web_token.rb            # JWT encode/decode
+â”œâ”€â”€ controllers/api/v1/
+â”‚   â”œâ”€â”€ auth_controller.rb           # Login + JWT
+â”‚   â”œâ”€â”€ products_controller.rb       # CRUD produk (index public)
+â”‚   â”œâ”€â”€ mejas_controller.rb          # CRUD meja (index public)
+â”‚   â”œâ”€â”€ transaksis_controller.rb     # Transaksi auth (CRUD + pay + report + cafe_pos)
+â”‚   â”œâ”€â”€ guest_transactions_controller.rb  # Transaksi guest (tanpa auth)
+â”‚   â”œâ”€â”€ categories_controller.rb     # CRUD kategori
+â”‚   â””â”€â”€ reports_controller.rb        # Laporan (read-only, auth required)
+â”œâ”€â”€ models/
+â”‚   â”œâ”€â”€ user.rb                      # User (admin/kasir_billiard/kasir_cafe)
+â”‚   â”œâ”€â”€ product.rb                   # Produk makanan/minuman
+â”‚   â”œâ”€â”€ meja.rb                      # Meja billiard
+â”‚   â”œâ”€â”€ transaksi.rb                 # Transaksi (billiard/cafe)
+â”‚   â”œâ”€â”€ transaksi_item.rb            # Item dalam transaksi cafe
+â”‚   â””â”€â”€ category.rb                  # Kategori produk
+â””â”€â”€ services/
+    â””â”€â”€ json_web_token.rb            # JWT encode/decode
 ```
 
 ---
@@ -201,79 +201,7 @@ docker compose exec api bundle exec rails routes
 # Final check sync: 2026-07-30 17:51:06 WIB
 # Daily sync: 2026-07-31 17:29:19 WIB
 # Re-sync (31 July): 2026-07-31 17:39:01 WIB
-# sync: 2026-07-31 18:23:14
-# sync: 2026-07-31 18:23:15
-# sync: 2026-07-31 18:23:16
-# sync: 2026-07-31 18:23:18
 # Last synced: 2026-07-31 18:23:43 SEAST
 # sync-18:26:45-1
 # sync-18:27:01
 # sync-18:27:10
-# sync: 2026-08-01 09:15:04
-# sync: 2026-08-01 09:15:05
-# sync: 2026-08-01 09:15:06
-# sync: 2026-08-01 09:15:07
-# sync: 2026-08-03 23:25:06
-# sync: 2026-08-03 23:25:07
-# sync: 2026-08-03 23:25:08
-# sync: 2026-08-03 23:25:09
-# sync: 2026-08-08 19:59:01
-# sync: 2026-08-08 19:59:02
-# sync: 2026-08-08 19:59:03
-# sync: 2026-08-08 19:59:05
-# sync: 2026-08-11 19:29:12
-# sync: 2026-08-11 19:29:12
-# sync: 2026-08-11 19:29:13
-# sync: 2026-08-11 19:29:13
-# sync: 2026-08-12 16:53:39
-# sync: 2026-08-12 16:53:39
-# sync: 2026-08-12 16:53:39
-# sync: 2026-08-12 16:53:39
-# sync: 2026-08-14 17:39:58
-# sync: 2026-08-14 17:39:59
-# sync: 2026-08-14 17:40:00
-# sync: 2026-08-14 17:40:02
-# sync: 2026-08-16 17:44:53
-# sync: 2026-08-16 17:44:53
-# sync: 2026-08-16 17:44:54
-# sync: 2026-08-16 17:44:54
-# sync: 2026-08-18 09:00:50
-# sync: 2026-08-18 09:00:51
-# sync: 2026-08-18 09:00:53
-# sync: 2026-08-18 09:00:54
-# sync: 2026-08-23 15:12:22
-# sync: 2026-08-23 15:12:28
-# sync: 2026-08-23 15:12:33
-# sync: 2026-08-23 15:12:38
-# sync: 2026-08-24 18:39:31
-# sync: 2026-08-24 18:39:32
-# sync: 2026-08-24 18:39:33
-# sync: 2026-08-24 18:39:34
-# sync: 2026-08-26 14:02:47
-# sync: 2026-08-26 14:02:47
-# sync: 2026-08-26 14:02:47
-# sync: 2026-08-26 14:02:47
-# sync: 2026-08-30 16:34:23
-# sync: 2026-08-30 16:34:25
-# sync: 2026-08-30 16:34:27
-# sync: 2026-08-30 16:34:29
-# sync: 2026-09-01 17:33:00
-# sync: 2026-09-01 17:33:21
-# sync: 2026-09-01 17:33:44
-# sync: 2026-09-01 17:34:08
-# sync: 2026-09-02 12:26:01
-# sync: 2026-09-02 12:26:01
-# sync: 2026-09-02 12:26:01
-# sync: 2026-09-02 12:26:02
-# sync: 2026-09-03 12:04:09
-# sync: 2026-09-03 12:04:39
-# sync: 2026-09-03 12:05:03
-# sync: 2026-09-03 12:05:43
-# sync: 2026-09-04 09:02:00
-# sync: 2026-09-04 09:02:15
-# sync: 2026-09-04 09:02:29
-# sync: 2026-09-04 09:02:54
-# sync: 2026-09-09 20:58:20
-# sync: 2026-09-09 20:58:27
-# sync: 2026-09-09 20:58:33
-# sync: 2026-09-09 20:58:40
